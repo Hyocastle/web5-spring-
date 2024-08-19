@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>총 정리 ++</title>
+</head>
+<body>
+	<h1>[ web5 ]</h1>
+	<!-- 로그인되어 있지 않을 때 보이는 메뉴
+	sec: authorize 이용한다.
+	 -->
+	<div sec:authorize="not isAuthenticated()">
+		<p>
+			<a href="member/joinForm">회원가입</a>
+		</p>
+		<p>
+			<a href="member/loginForm">로그인</a>
+		</p>
+	</div>
+
+	<div sec:authorize="isAuthenticated()">
+		<p>
+			<a href="member/logout">로그아웃</a>
+		</p>
+		<p>
+			<a href="member/info">개인정보 수정</a>
+		</p>
+		<hr>
+		<p>
+			<a href="">회원탈퇴</a>
+		</p>
+	</div>
+	<p>
+		<a href="board/list">게시판</a>
+	</p>
+</body>
+</html>

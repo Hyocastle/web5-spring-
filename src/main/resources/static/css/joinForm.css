@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/*joinForm css 적용하기*/
+
+h1 {
+    text-align: center;
+}
+
+#infoForm {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align : center;
+}
+
+/* 테이블 스타일 */
+table, tr, td, th {
+	border : collapse;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;    
+}
+
+th {
+    background-color: lightblue;
+}
+
+td{
+	padding-left : 5px;
+	
+}
+table{
+	background-color : #5AE0FF;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}
+
+/* 버튼 스타일 */
+button {
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 2px;
+    border: 2px solid transparent;
+}
+
+button[type="submit"]{
+	margin-top : 10px;
+}
+

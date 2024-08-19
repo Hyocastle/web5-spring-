@@ -1,0 +1,34 @@
+net.datasa.web5.security
+net.datasa.web5.util
+
+*각 기능별 경로
+/member/joinForm : 가입 폼
+/member/join : 가입처리
+/member/loginForm : 로그인 폼
+/member/login : 로그인처리
+/member/info : 개인정보 수정
+/member/write : 글쓰기
+/member/delete : 글삭제
+
+컨트롤러
+-홈 / 회원 / 게시판
+
+1. DB를 먼저 연결하고 테이블을 생성한다 (gradle -> application.properties)
+2. 컨트롤러를 생성하고 각각의 폴더들을 생성해둔다.(받아야할 값들을 정한다 id pw age 등등) 
+	-> 여러개 선택해야하는 것(취향)등은 따로 테이블을 만들어주는 것이 좋다
+3. 레파지토리, 서비스 생성
+4. 회원가입 form 및 css, 유효성 검사 작성
+5. service에 회원가입시 실행할 메서드를 작성하고 컨트롤러도 작성한다.
+6. id 중복체크를 구현한다.
+--------금
+7.시큐리티 관련 파일들을 추가한다.(build.gradle, WebSecurityConfig, AuthenticatedUser, AutheticatedUserDetails)
+8.로그인 form 생성 및 css, 유효성 검사 작성
+9.로그인 form에 값을 담아서 보내면 그 이후에 security가 처리해 줄 수 있게 security를 수정한다.
+
+
+글 쓰기 순서 : 글을 쓰고 저장하기를 누르면  post Form으로 간다 name이 title, contents인 값을 전달한다.
+action으로 선언한 url로 값이 보내진다. boardDTO 객체로 보내진 값을 받아온다. DTO변수는 다양한데 값이 2개만 들어있기 때문에
+나머지 값들에는 null이 들어있다. 누가 글을 썼는지 알기위해 로그인한 대상의 아이디를 받아온다(authenticationPrincipal)
+DTO에 들어있는 값을 service로 보낸다. 받아온 DTO값에서 사용할 값들을 꺼내서 사용한다(name title id)
+memberEntity에서 findbyId로 id와 일치하는 entity를 받아오고 boardEntity에 넣어준다.
+

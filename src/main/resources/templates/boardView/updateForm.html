@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>게시판</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script>
+	$(document).ready(function() {
+		$('#updateForm').submit(function() {
+			if ($('#title').val().length < 5) {
+				alert("제목을 5자 이상 입력하세요.");
+				$('#title').focus();
+				$('#title').select();
+				return false;
+			}
+			if ($('#contents').val().length < 5) {
+				alert("내용을 5자 이상 입력하세요.");
+				$('#contents').focus();
+				$('#contents').select();
+				return false;
+			}
+			return true;
+		});
+	});
+</script>
+</head>
+<body>
+	<h3>게시글 수정</h3>
+	<form th:action="@{/board/update}" method="post" id="updateForm"
+	enctype="multipart/form-data">
+		<!--글 번호 -->
+		<input type="hidden" name="boardNum" th:value="${board.boardNum}">
+		<table>
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="title" th:value="${board.title}"
+					id="title"></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><textarea name="contents" id="contents"
+						th:text="${board.contents}"></textarea></td>
+			</tr>
+			<tr>
+				<th>첨부 파일</th>
+				<td><input type="file" name="upload" th:text="${board.originalName}"></td>
+			</tr>
+		</table>
+		<button type="submit">수정</button>
+	</form>
+</body>
+</html>

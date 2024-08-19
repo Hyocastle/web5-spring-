@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>글쓰기 Form</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/writeForm.css}" />
+<script>
+	$(document).ready(function() {
+		$('#writeForm').submit(validation);
+	});
+
+	function validation() {
+		let title = $('#title').val().trim();
+		let contents = $('#contents').val().trim();
+
+		if (title === '') {
+			alert("제목를 입력해주세요");
+			return false;
+		}
+		if (contents === '') {
+			alert("내용을 입력해주세요");
+			return false;
+		}
+		return true;
+	}
+</script>
+</head>
+<body>
+	<h1>[ 글쓰기 ]</h1>
+	<!-- action method만 적으면 binary 데이터를 가져가지 않고 글자만 가져간다
+	파일을 보내려면 enctype을 꼭 써줘야한다. (파일첨부)-->
+	<form action="write" method="post" id="writeForm"
+	enctype="multipart/form-data">
+		<table>
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="title" required id="title"></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><input type="text" name="contents" required id="contents"></td>
+			</tr>
+			<tr>
+				<th>파일첨부</th>
+				<!-- controller에서 name으로 받아야하기 때문에 name을 꼭 써줘야한다. (파일첨부)-->
+				<td><input type="file" name="upload"></td>
+				<!-- 파일을 여러개 보내려면 이런식으로 해주면 배열의 형식으로 간다.
+				multipartFile list로 받아주면된다. -->
+<!-- 				<td><input type="file" name="upload"></td>
+				<td><input type="file" name="upload"></td> -->
+			</tr>
+		</table>
+		<button type="submit">저장</button>
+	</form>
+</body>
+</html>

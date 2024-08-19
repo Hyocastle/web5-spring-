@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>아이디 중복 확인 양식</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<style>
+body {
+	text-align: center
+}
+</style>
+<script>
+	$(document).ready(function() {
+		$('#checkForm').submit(idCheck);
+		
+		$('#inputButton').click(function(){
+			//이벤트 함수에서 this이면 여기서는 누른 버튼을 의미한다.
+			let id = $(this).data('id');
+			//attr 은 type value id 등 타입들을 다 읽을 수 있다.
+			//let id = $(this).attr('data-id');
+			//opener.document 상위 창의 document를 사용
+			//상위 창의 id가 id인 것을 찾아서 id값을 대입한다.
+			$(opener.document).find('#id').val(id);
+			//opener.document.getElementBy('id').value = id;
+			window.close();
+		})
+	});
+
+	function idCheck() {
+		let id = $('#checkId').val().trim();
+
+		if (id === '') {
+			alert("아이디를 입력해주세요");
+			return false;
+		}
+		else if(id.length <3 || id.length > 10){
+			alert("아이디는 3~10자 입니다.")
+			return false;
+		}
+		return true;
+	}
+</script>
+</head>
+<body>
+	<h1>[ ID 중복 확인 ]</h1>
+
+	<form action="idCheck" method="post" id="checkForm">
+		검색할 ID <input type="text" name="checkId" id="checkId">
+		<button type="submit">검색</button>
+	</form>
+
+	<!-- js스크립트 창으로 새로운 창을 연 뒤 기존의 js창의 값을 사용할 때는 opener로 호출한다. -->
+<!-- 	<p>[[${id}]],[[${result}]]</p> -->	
+		<div th:if="${result != null}">
+		<div th:if="${result}">
+			<p>
+				<span th:text="${id}"></span><span> : 사용 가능한 아이디입니다. </span>
+			</p>
+			<p>
+				<input type="button" value="ID사용하기" id="inputButton"
+					th:data-id="${id}"}>
+			</p>
+		</div>
+		<div th:if="${not result}">
+			<p>
+				<span th:text="${id}"></span><span> : 이미 사용중인 아이디 입니다.</span>
+			</p>
+		</div>
+	</div>
+</body>
+</html>

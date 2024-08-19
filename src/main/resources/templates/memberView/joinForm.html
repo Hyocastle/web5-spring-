@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/joinForm.css}" />
+<script>
+	$(document).ready(function() {
+//		$('#joinForm').on('submit', function(event) {
+		$('#joinForm').submit(validation);
+		$('#openButton').click(winOpen); //id선택자를 사용하여 클릭이벤트가 발생했을 때 함수가 발생하게
+	});
+		
+	function validation(){
+		let memberId = $('#id').val().trim();
+		let memberPassword = $('#pw').val().trim();
+		let pwCheck = $('#pwCheck').val().trim();
+		let memberName = $('#name').val().trim();
+		
+			//ID 검사
+			if (memberId === '') {
+				alert("아이디를 입력해주세요");
+				return  false;
+			}else if(memberId.length < 3 || memberId.length >10){
+				alert("ID는 3~10자 여야합니다.");
+				return  false;
+			}
+
+			//비밀번호 검사
+			if (memberPassword === '') {
+				alert("비밀번호를 입력해주세요");
+				return  false;
+			} else if (memberPassword !== pwCheck) {
+				alert("비밀번호가 일치하지 않습니다.");
+				return  false;
+			}
+			//이름 검사
+			if (memberName === '') {
+				alert("이름을 입력해주세요");
+				return  false;
+			}
+			return true;
+		};
+		
+	function winOpen(){
+		let w = window.open('idCheck', 'win', 'left=500,top=200,width=500,height=400,location=no,toolbar=no'); 
+		//js의 내장 객체 window를 이용한다. 웹브라우저를 1개 더 연다.
+		//(직접 실행한 것과의 차이 : 크기를 작게하고 메뉴를 안보이게 하고 하는 것 등)
+		//완전히 원하는 모양으로 보여주려면 window.open이 아닌 css에서 만들어서 띄워줘야한다.
+		// ('idCheck', '', '')  1번 : 지금 주소 기준 상대경로 url 상대경로 2번 : 창 이름 3번 : 어떤 모양으로 열릴지
+		//조건들은 검색해서 넣기
+	}
+</script>
+</head>
+<body>
+	<h1>[ toaru 회원 가입 ]</h1>
+
+	<form th:action="@{/member/join}" method="post" id="joinForm">
+		<table>
+			<tr>
+				<th>ID</th>
+				<td><input type="text" name="memberId" id="id" maxlength="10" placeholder="ID 입력"
+					readonly="readonly"></td>
+				<td><input type="button" class="btn" id="openButton"
+					value="ID중복확인"></td>
+			</tr>
+			<tr>
+				<th rowspan="2">비밀번호</th>
+				<td><input type="password" name="memberPassword" id="pw" placeholder="비밀번호 입력"
+					required></td>
+			</tr>
+			<tr>
+				<td><input type="password" id="pwCheck" placeholder="비밀번호 확인"
+					required></td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td><input type="text" name="memberName" id="name" required></td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td><input type="text" name="email" placeholder="메일 입력"></td>
+			</tr>
+			<tr>
+				<th>전화번호</th>
+				<td><input type="text" name="phone" placeholder="전화번호 입력"></td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td><input type="text" name="address" placeholder="주소 입력"></td>
+			</tr>
+		</table>
+		<button type="submit" class="btn">가입</button>
+		<button type="reset" class="btn">초기화</button>
+	</form>
+</body>
+</html>

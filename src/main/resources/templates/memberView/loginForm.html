@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<title>로그인 Form</title>
+<style>
+div {
+color : red;
+}
+</style>
+</head>
+<body>
+	<h1>로그인</h1>
+	<!-- action은 webSecurityConfig의 loginprocessingURL에서 설정한 것과 동일해야한다.
+		form에 작성된 값을 /login으로 전송한다.
+		비밀번호가 포함돼어 있기때문에 post가 적합하다. -->
+	<form action="/member/login" method="post">
+	<!-- name은 security설정에서 설정한 parameter과 동일해야한다. 
+		security 설정의 formlogin 파트와 다르게 설정한 경우 값을 빼고 넘어간다. -->
+		ID<input type="text" name="id"><br> 
+		PW<input type="password" name="password"><br>
+		<input type="submit" value="Login"><br>
+	</form>
+	<div th:if="${param.error}"><p>ID 또는 비밀번호가 틀립니다</p></div>
+</body>
+</html>
