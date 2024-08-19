@@ -27,7 +27,6 @@ public class AuthenticatedUser implements UserDetails {
 	/**
 	 * serialVersionUID 우연히 겹치지 않게 긴 숫자를 적어주면 된다.
 	 * 객체 직렬화 : 객체를 직렬화하여 전송 가능한 형태로 만드는 것
-	 * 
 	 * 		입력 출력은 stream(데이터가 흘러가는 통로(일방향으로 흐른다))을 통과하는 것
 	 * 		데이터가 stream을 통해서 이동할 때 덩치가 큰 데이터가 통과하지 못하는 경우가 생긴다.
 	 * 		데이터를 해체하여 통과하게 되는데 통과 후 다시 재조립하여 복구했을 때
